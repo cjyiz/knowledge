@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-    <div calss='content'>
+    <div class='content'>
       <Sidebar></Sidebar>
       <overview></overview>
     </div>
@@ -23,3 +23,14 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.home {
+  height: 100%;
+  width: 100%;
+  .content {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: row;
+  }
+}
+</style>
