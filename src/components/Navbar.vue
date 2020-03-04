@@ -4,10 +4,14 @@
          class='span1'
          alt="">
     <span class='span2'>知识库管理</span>
-    <span class='span3'>
-      <router-link to="/home">主菜单</router-link>
+    <span class='span3'
+          @click='change'
+          :class={active:isActive}>
+      <router-link to="/">主菜单</router-link>
     </span>
-    <span class='span4'>
+    <span class='span4'
+          @click='change'
+          :class={active:!isActive}>
       <router-link to="/userManage"> 用户管理</router-link>
     </span>
     <span class='span5'>当前时间</span>
@@ -21,7 +25,8 @@ export default {
   data () {
     return {
       nowDate: null,
-      nowTime: null
+      nowTime: null,
+      isActive: true
     }
   },
   components: {
@@ -33,30 +38,44 @@ export default {
     console.log(this.nowDate)
   },
   methods: {
-
+    change () {
+      this.isActive = !this.isActive
+      console.log('123')
+    }
   }
 }
 </script>
 <style lang='scss'>
 .navbar {
   position: relative;
-  height: 80px;
+  height: 65px;
   width: 100%;
+  line-height: 65px;
+  background-color: rgb(12, 4, 31);
+  color: #777;
   .span1 {
     left: 0;
     position: absolute;
   }
   .span2 {
-    left: 20px;
+    left: 50px;
+    color: #fff;
+    font-size: 30px;
     position: absolute;
   }
-  .sapn3 {
-    left: 150px;
+  .span3 {
+    left: 250px;
     position: absolute;
+    a {
+      color: #777;
+    }
   }
-  .sapn4 {
-    left: 300px;
+  .span4 {
+    left: 450px;
     position: absolute;
+    a {
+      color: #777;
+    }
   }
   .span5 {
     right: 60px;
@@ -69,6 +88,9 @@ export default {
   .span7 {
     position: absolute;
     right: 0;
+  }
+  .active {
+    background-color: #fff;
   }
 }
 </style>

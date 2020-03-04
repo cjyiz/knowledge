@@ -50,5 +50,6 @@ export default {
   border: 1px solid red;
   width: 16%;
   margin: 10px auto;
+  background-color: green;
 }
 </style>
