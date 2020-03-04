@@ -1,10 +1,19 @@
 <template>
   <div class='overview'>
     <div class='head'>
-      <div>全选</div>
-      <div>删除</div>
-      <div>
-        语言
+      <div class='selectAll'>
+        <input type="checkbox"
+               @click='checkbox'>
+        <div @click='selectAll'
+             class='button'
+             :class='{selected:isSelect}'>
+          全选
+        </div>
+      </div>
+      <div class='delete button'
+           @click='del'>删除</div>
+      <div class='language'>
+        <span>语言</span>
         <el-select v-model="text1"
                    placeholder="请选择">
           <el-option v-for="item in options"
@@ -14,8 +23,8 @@
           </el-option>
         </el-select>
       </div>
-      <div>分类
-
+      <div class='optionType'>
+        <span>分类</span>
         <el-select v-model="text2"
                    placeholder="请选择">
           <el-option v-for="item in options1"
@@ -25,18 +34,28 @@
           </el-option>
         </el-select>
       </div>
-      <div>创建时间</div>
-      <div>修改时间</div>
-      <div>点赞数</div>
+      <div class='create-time button'
+           :class='{selected:isSelect1}'
+           @click='createTime'>创建时间</div>
+      <div class='edit-time button'
+           :class='{selected:isSelect2}'
+           @click='editTime'>修改时间</div>
+      <div class='like button'
+           :class='{selected:isSelect3}'
+           @click='like'>点赞数</div>
       <div>
-        <input type="text"
-               placeholder="关键字/标题">
+        <el-input placeholder="请输入内容"
+                  v-model="searchKey">
+          <i slot="prefix"
+             class="el-input__icon el-icon-search"></i>
+        </el-input>
+
       </div>
     </div>
     <div class='edit'>
       <div>+添加</div>
     </div>
-    <ul>
+    <ul class=''>
       <li v-for='(item,index) in articleData'
           class='container'
           :key="index">
@@ -64,7 +83,6 @@
               <span>{{item.level1}}</span>
               <span>{{item.level2}}</span>
             </div>
-
           </div>
         </div>
         <div class='overview-like'>
@@ -73,17 +91,23 @@
           <span>{{item.like}}</span>
         </div>
         <div class='overview-creater'>
-          <span>{{item.creater}}</span>
+          <p>创建人:</p>
+          <p>{{item.creater}}</p>
         </div>
         <div class='overview-createtime'>
           <span>{{item.createTime}}</span>
         </div>
         <div class='overview-edit'>
-          <span>编辑</span>
-          <span>更多</span>
+          <span class='button'>编辑</span>
+          <span class='button'>更多</span>
         </div>
       </li>
     </ul>
+
+    <el-pagination background
+                   layout="prev, pager, next"
+                   :total="1000">
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -93,6 +117,11 @@ export default {
   },
   data () {
     return {
+      searchKey: '关键字/标题',
+      isSelect: true,
+      isSelect1: true,
+      isSelect2: false,
+      isSelect3: false,
       checked: true,
       text1: "全部",
       text2: '部署',
@@ -170,6 +199,43 @@ export default {
   },
   mounted () {
 
+  },
+  methods: {
+    checkbox () {
+      console.log(event.target.checked)
+
+      this.isSelect = event.target.checked
+
+    },
+    createTime () {
+      this.isSelect1 = true
+      this.isSelect2 = false
+      this.isSelect3 = false
+      console.log('按照创建时间排序')
+    },
+    editTime () {
+      this.isSelect1 = false
+      this.isSelect2 = true
+      this.isSelect3 = false
+      console.log('按照编辑时间排序')
+    },
+    like () {
+      this.isSelect1 = false
+      this.isSelect2 = false
+      this.isSelect3 = true
+      console.log('点赞数排序')
+    },
+    selectAll () {
+      // this.axios.post('',data).then(()=>{
+
+      // })
+      console.log(this.$axios)
+      console.log('选择全部')
+    },
+    del () {
+      console.log('删除')
+    },
+
   }
 }
 </script>
@@ -182,10 +248,25 @@ export default {
   .head {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    .jc-select {
-      width: 50px;
+    font-size: 18px;
+    margin: 20px 0;
+    .selectAll {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 6em;
+    }
+    .delete {
+    }
+    .language {
+    }
+    .optionType {
+    }
+    .create-time {
+    }
+    .edit-time {
     }
   }
   .edit {
@@ -195,6 +276,7 @@ export default {
     height: 30px;
     border: 1px dotted #888;
   }
+
   .container {
     display: flex;
     flex-direction: row;
@@ -242,8 +324,10 @@ export default {
       width: 20%;
       height: 96px;
       border: 1px solid blue;
-      text-align: center;
-      line-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .overview-createtime {
       width: 20%;

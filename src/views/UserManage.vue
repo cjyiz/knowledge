@@ -1,9 +1,9 @@
 <template>
-  <div class="userManage">
+  <div class="home">
     <Navbar></Navbar>
     <div class='content'>
       <Sidebar></Sidebar>
-      <overview></overview>
+      <UserEdit></UserEdit>
     </div>
 
   </div>
@@ -13,18 +13,18 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
-import Overview from '@/views/Overview'
+import UserEdit from '@/components/UserEdit'
 export default {
   name: 'Home',
   components: {
     Sidebar,
-    Overview,
-    Navbar
+    Navbar,
+    UserEdit
   }
 }
 </script>
 <style lang="scss">
-.usermanage {
+.home {
   height: 100%;
   width: 100%;
   .content {

@@ -4,16 +4,17 @@
          class='span1'
          alt="">
     <span class='span2'>知识库管理</span>
-    <span class='span3'
-          @click='change'
-          :class={active:isActive}>
-      <router-link to="/">主菜单</router-link>
-    </span>
-    <span class='span4'
-          @click='change'
-          :class={active:!isActive}>
-      <router-link to="/userManage"> 用户管理</router-link>
-    </span>
+    <ul>
+      <li v-for="(item,index) in navData"
+          :key="index">
+        <!-- {{item.title}} -->
+        <router-link :to="item.src"
+                     tag='li'>
+          <a href="">{{item.title}}</a>
+        </router-link>
+      </li>
+    </ul>
+
     <span class='span5'>当前时间</span>
     <span class='span6'>{{nowDate}}</span>
     <span class='span7'>{{nowTime}}</span>
@@ -26,7 +27,21 @@ export default {
     return {
       nowDate: null,
       nowTime: null,
-      isActive: true
+      position: 1,
+      isActive1: true,
+      isActive2: false,
+      navData: [
+        {
+          id: 1,
+          src: '/',
+          title: '首页'
+        },
+        {
+          id: 2,
+          src: '/usermanage',
+          title: '用户管理'
+        }
+      ]
     }
   },
   components: {
@@ -35,24 +50,43 @@ export default {
   mounted () {
     let d = new Date()
     this.nowDate = d.getFullYear()
+    this.nowTime = d.getHours()
     console.log(this.nowDate)
   },
   methods: {
-    change () {
-      this.isActive = !this.isActive
-      console.log('123')
-    }
+
+
   }
 }
 </script>
 <style lang='scss'>
+a {
+  color: #777;
+  height: 50px;
+  margin: 20px;
+}
+.router-link-exact-active {
+  background-color: #fff !important;
+}
 .navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
   position: relative;
   height: 65px;
   width: 100%;
   line-height: 65px;
   background-color: rgb(12, 4, 31);
   color: #777;
+  ul {
+    // width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding-left: 300px;
+  }
   .span1 {
     left: 0;
     position: absolute;
