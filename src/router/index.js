@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import UserManage from '../views/UserManage'
+import About from '../views/About'
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,6 +14,10 @@ const routes = [
   {
     path: '/usermanage',
     component: UserManage
+  },
+  {
+    path: '/about',
+    component: About
   }
 
 ]
