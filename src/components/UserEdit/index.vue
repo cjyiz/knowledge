@@ -48,7 +48,16 @@ export default {
       if (this.username == "" || this.password == "") {
         alert("请输入用户名或密码")
       } else {
+        const datas = {
+          username: 'cjyiz',
+          password: 1236
+        }
+        console.log(this.$axios)
         this.loading = true
+        console.log(this.$api.login.login)
+        this.$axios.post(this.$api.login.login, datas).then(res => {
+          console.log(res)
+        })
 
 
       }
